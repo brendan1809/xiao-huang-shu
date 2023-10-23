@@ -11,13 +11,6 @@ module.exports = async function (env, argv) {
     config.devServer.compress = false
   }
 
-  config.plugins.push(
-    new TamaguiPlugin({
-      config: "./src/tamagui.config.ts",
-      components: ["tamagui"], // matching the yarn add you chose above
-    }),
-  )
-
   // Or prevent minimizing the bundle when you build.
   // if (config.mode === "production") {
   //   config.optimization.minimize = false

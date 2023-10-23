@@ -73,7 +73,8 @@
     "reactotron-mst": "3.1.4",
     "reactotron-react-js": "^3.3.7",
     "reactotron-react-native": "5.0.3",
-    "tamagui": "^1.75.1"
+    "tamagui": "^1.75.1",
+    "zustand": "^4.4.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -28,8 +28,6 @@ import { ErrorBoundary } from "./screens/ErrorScreen/ErrorBoundary"
 import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
 import Config from "./config"
-
-import "@tamagui/core/reset.css"
 import { TamaguiProvider } from "tamagui"
 import tamaguiConfig from "../tamagui.config"
 

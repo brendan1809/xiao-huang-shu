@@ -24,10 +24,8 @@ import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-c
 import * as Linking from "expo-linking"
 import { useInitialRootStore } from "./models"
 import { AppNavigator, useNavigationPersistence } from "./navigators"
-import { ErrorBoundary } from "./screens/ErrorScreen/ErrorBoundary"
 import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
-import Config from "./config"
 import { TamaguiProvider } from "tamagui"
 import tamaguiConfig from "../tamagui.config"
 
@@ -98,13 +96,11 @@ function App(props: AppProps) {
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <TamaguiProvider config={tamaguiConfig}>
-        <ErrorBoundary catchErrors={Config.catchErrors}>
-          <AppNavigator
-            linking={linking}
-            initialState={initialNavigationState}
-            onStateChange={onNavigationStateChange}
-          />
-        </ErrorBoundary>
+        <AppNavigator
+          linking={linking}
+          initialState={initialNavigationState}
+          onStateChange={onNavigationStateChange}
+        />
       </TamaguiProvider>
     </SafeAreaProvider>
   )

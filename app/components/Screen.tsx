@@ -1,19 +1,23 @@
+/* eslint-disable react-native/no-inline-styles */
 import { useScrollToTop } from "@react-navigation/native"
 import { StatusBar, StatusBarProps } from "expo-status-bar"
 import React, { useRef, useState } from "react"
 import {
+  Keyboard,
   KeyboardAvoidingView,
   KeyboardAvoidingViewProps,
   LayoutChangeEvent,
   Platform,
+  SafeAreaView,
   ScrollView,
   ScrollViewProps,
   StyleProp,
+  TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from "react-native"
-import { colors } from "../theme"
 import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { colors } from "colors"
 
 interface BaseScreenProps {
   /**
@@ -40,6 +44,7 @@ interface BaseScreenProps {
    * Status bar setting. Defaults to dark.
    */
   statusBarStyle?: "light" | "dark"
+
   /**
    * By how much should we offset the keyboard? Defaults to 0.
    */
@@ -52,6 +57,9 @@ interface BaseScreenProps {
    * Pass any additional props directly to the KeyboardAvoidingView component.
    */
   KeyboardAvoidingViewProps?: KeyboardAvoidingViewProps
+
+  hasSafeAreaView?: boolean
+  onPress?: () => void
 }
 
 interface FixedScreenProps extends BaseScreenProps {
@@ -72,6 +80,7 @@ interface ScrollScreenProps extends BaseScreenProps {
 
 interface AutoScreenProps extends Omit<ScrollScreenProps, "preset"> {
   preset?: "auto"
+
   /**
    * Threshold to trigger the automatic disabling/enabling of scroll ability.
    * Defaults to `{ percent: 0.92 }`.
@@ -165,6 +174,7 @@ function ScreenWithScrolling(props: ScreenProps) {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       {...{ keyboardShouldPersistTaps, scrollEnabled, ref }}
       {...ScrollViewProps}
       onLayout={(e) => {
@@ -189,33 +199,71 @@ function ScreenWithScrolling(props: ScreenProps) {
 
 export function Screen(props: ScreenProps) {
   const {
-    backgroundColor = colors.background,
+    backgroundColor = "white",
     KeyboardAvoidingViewProps,
     keyboardOffset = 0,
     safeAreaEdges,
     StatusBarProps,
     statusBarStyle = "dark",
+    hasSafeAreaView = false,
+    children,
+    onPress,
   } = props
 
   const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
 
   return (
-    <View style={[$containerStyle, { backgroundColor }, $containerInsets]}>
-      <StatusBar style={statusBarStyle} {...StatusBarProps} />
+    <>
+      {Platform.OS === "web" ? (
+        <TouchableWithoutFeedback
+          disabled={!onPress}
+          onPress={() => {
+            Keyboard.dismiss()
+            onPress && onPress()
+          }}
+          accessible={false}
+        >
+          {isNonScrolling(props.preset) ? (
+            <View style={{ flex: 1, backgroundColor: "white" }}>{children}</View>
+          ) : (
+            <ScreenWithScrolling {...props} />
+          )}
+        </TouchableWithoutFeedback>
+      ) : (
+        <SafeAreaView
+          style={{
+            flex: 1,
+            paddingTop: Platform.OS === "android" && hasSafeAreaView ? 25 : 0,
+          }}
+        >
+          <TouchableWithoutFeedback
+            disabled={!onPress}
+            onPress={() => {
+              Keyboard.dismiss()
+              onPress && onPress()
+            }}
+            accessible={false}
+          >
+            <View style={[$containerStyle, { backgroundColor }, $containerInsets]}>
+              <StatusBar style={statusBarStyle} {...StatusBarProps} />
 
-      <KeyboardAvoidingView
-        behavior={isIos ? "padding" : undefined}
-        keyboardVerticalOffset={keyboardOffset}
-        {...KeyboardAvoidingViewProps}
-        style={[$keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
-      >
-        {isNonScrolling(props.preset) ? (
-          <ScreenWithoutScrolling {...props} />
-        ) : (
-          <ScreenWithScrolling {...props} />
-        )}
-      </KeyboardAvoidingView>
-    </View>
+              <KeyboardAvoidingView
+                behavior={isIos ? "padding" : undefined}
+                keyboardVerticalOffset={keyboardOffset}
+                {...KeyboardAvoidingViewProps}
+                style={[$keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
+              >
+                {isNonScrolling(props.preset) ? (
+                  <ScreenWithoutScrolling {...props} />
+                ) : (
+                  <ScreenWithScrolling {...props} />
+                )}
+              </KeyboardAvoidingView>
+            </View>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
+      )}
+    </>
   )
 }
 

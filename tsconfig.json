@@ -15,10 +15,22 @@
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "baseUrl": "./",
     "paths": {
-      "react": [ "./node_modules/@types/react" ]
-    }
+      "react": ["./node_modules/@types/react"],
+      "components": ["./app/components"],
+      "components/*": ["./app/components/*"],
+      "containers": ["./app/containers"],
+      "i18n": ["./app/i18n"],
+      "config/*": ["./app/config/*"],
+      "utils/*": ["./app/utils/*"],
+      "models": ["./app/models"],
+      "models/*": ["./app/models/*"],
+      "screens": ["./app/screens"],
+      "screens/*": ["./app/screens/*"],
+      "theme": ["./app/theme"],
+      "colors": ["./app/theme/colors"]
+    },
+    "baseUrl": "./"
   },
   "exclude": ["node_modules"],
   "include": ["index.js", "App.js", "app", "test", "*.js"],

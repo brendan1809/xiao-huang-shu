@@ -26,8 +26,6 @@ import { useInitialRootStore } from "./models"
 import { AppNavigator, useNavigationPersistence } from "./navigators"
 import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
-import { TamaguiProvider } from "tamagui"
-import tamaguiConfig from "../tamagui.config"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -95,13 +93,11 @@ function App(props: AppProps) {
   // otherwise, we're ready to render the app
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <TamaguiProvider config={tamaguiConfig}>
-        <AppNavigator
-          linking={linking}
-          initialState={initialNavigationState}
-          onStateChange={onNavigationStateChange}
-        />
-      </TamaguiProvider>
+      <AppNavigator
+        linking={linking}
+        initialState={initialNavigationState}
+        onStateChange={onNavigationStateChange}
+      />
     </SafeAreaProvider>
   )
 }

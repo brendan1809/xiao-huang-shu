@@ -8,7 +8,6 @@ import {
   KeyboardAvoidingViewProps,
   LayoutChangeEvent,
   Platform,
-  SafeAreaView,
   ScrollView,
   ScrollViewProps,
   StyleProp,
@@ -17,7 +16,7 @@ import {
   ViewStyle,
 } from "react-native"
 import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import { colors } from "colors"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 interface BaseScreenProps {
   /**

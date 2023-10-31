@@ -35,6 +35,8 @@ const palette = {
 
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
+  primary: "#FFD301",
+  secondary: "#C4BEF1",
 } as const
 
 export const colors = {
@@ -72,13 +74,26 @@ export const colors = {
    * A subtle color used for lines.
    */
   separator: palette.neutral300,
-  /**
-   * Error messages.
-   */
-  error: palette.angry500,
-  /**
-   * Error Background.
-   *
-   */
+
   errorBackground: palette.angry100,
+
+  white: "white",
+  black: "black",
+
+  buttonBackground: palette.primary,
+  buttonTitle: "black",
+
+  divider: "rgba(0,0,0,0.3)",
+  primary: palette.primary,
+  secondary: palette.secondary,
+  error: "red",
+  errorText: "red",
+
+  hyperlink: "#1877f2",
+  dropdownBackground: "white",
+  inputFieldBorder: "rgba(0,0,0,0.3)",
+  inputFieldBackground: "rgba(211,211,211,0.5)",
+  passwordIcon: "rgba(0,0,0,0.3)",
+  placeholder: "rgba(0,0,0,0.3)",
+  lightGrey: "rgba(0,0,0,0.2)",
 }

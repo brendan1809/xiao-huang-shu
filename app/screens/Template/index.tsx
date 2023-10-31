@@ -3,7 +3,6 @@ import React from "react"
 import { View } from "react-native"
 import { style } from "./styles"
 import { useNavigation } from "@react-navigation/native"
-import { translate } from "i18n"
 
 export const TemplateScreen = () => {
   const navigation = useNavigation<any>()

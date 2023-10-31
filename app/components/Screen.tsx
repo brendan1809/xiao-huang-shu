@@ -229,38 +229,31 @@ export function Screen(props: ScreenProps) {
           )}
         </TouchableWithoutFeedback>
       ) : (
-        <SafeAreaView
-          style={{
-            flex: 1,
-            paddingTop: Platform.OS === "android" && hasSafeAreaView ? 25 : 0,
+        <TouchableWithoutFeedback
+          disabled={!onPress}
+          onPress={() => {
+            Keyboard.dismiss()
+            onPress && onPress()
           }}
+          accessible={false}
         >
-          <TouchableWithoutFeedback
-            disabled={!onPress}
-            onPress={() => {
-              Keyboard.dismiss()
-              onPress && onPress()
-            }}
-            accessible={false}
-          >
-            <View style={[$containerStyle, { backgroundColor }, $containerInsets]}>
-              <StatusBar style={statusBarStyle} {...StatusBarProps} />
+          <View style={[$containerStyle, { backgroundColor }, $containerInsets]}>
+            <StatusBar style={statusBarStyle} {...StatusBarProps} />
 
-              <KeyboardAvoidingView
-                behavior={isIos ? "padding" : undefined}
-                keyboardVerticalOffset={keyboardOffset}
-                {...KeyboardAvoidingViewProps}
-                style={[$keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
-              >
-                {isNonScrolling(props.preset) ? (
-                  <ScreenWithoutScrolling {...props} />
-                ) : (
-                  <ScreenWithScrolling {...props} />
-                )}
-              </KeyboardAvoidingView>
-            </View>
-          </TouchableWithoutFeedback>
-        </SafeAreaView>
+            <KeyboardAvoidingView
+              behavior={isIos ? "padding" : undefined}
+              keyboardVerticalOffset={keyboardOffset}
+              {...KeyboardAvoidingViewProps}
+              style={[$keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
+            >
+              {isNonScrolling(props.preset) ? (
+                <ScreenWithoutScrolling {...props} />
+              ) : (
+                <ScreenWithScrolling {...props} />
+              )}
+            </KeyboardAvoidingView>
+          </View>
+        </TouchableWithoutFeedback>
       )}
     </>
   )

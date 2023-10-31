@@ -12,7 +12,12 @@
           "package_name": "com.xiaohuangshu"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "191841855764-1ue3v8n1uvd72j0nttd351otad3tk6on.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDj7KDoXXm45bEUBXoBRFlcjp9BUvJJ47I"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191841855764-1ue3v8n1uvd72j0nttd351otad3tk6on.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "191841855764-ns7ntamatftjdsajvjn68cuq1hof9orr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.xiaohuangshu"
+              }
+            }
+          ]
         }
       }
     }
